@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+//Caminho de solicitação dos dados da API
 const request = "https://api.hgbrasil.com/finance?format=json&key=171b4d61";
 
 void main() async {
@@ -30,14 +31,60 @@ Future<Map> getData() async {
   return json.decode(response.body);
 }
 
+//Criação da tela inicial com 'Stf'
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
+//Criação do estado inicial da tela
 class _HomeState extends State<Home> {
+  final realController = TextEditingController();
+  final dolarController = TextEditingController();
+  final euroController = TextEditingController();
+
   double dolar;
   double euro;
+
+  //Função para que limpe os campos de entrada
+  void _clearAll() {
+    realController.text = "";
+    euroController.text = "";
+    dolarController.text = "";
+  }
+
+  void _realChanged(String text) {
+//Teste lógico e chamada da função
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+    //Pega a entrada do usuário e transforma em String
+    double real = double.parse(text);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+  }
+
+  void _dolarChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+
+    double dolar = double.parse(text);
+    realController.text = (dolar * this.dolar).toStringAsFixed(2);
+    realController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
+  }
+
+  void _euroChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+    double euro = double.parse(text);
+    realController.text = (euro * this.euro).toStringAsFixed(2);
+    dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,32 +131,28 @@ class _HomeState extends State<Home> {
                           size: 150.0,
                           color: Colors.amber,
                         ),
-                        TextField(
-                          decoration: InputDecoration(
-                              labelText: "Reais",
-                              labelStyle: TextStyle(color: Colors.amber),
-                              border: OutlineInputBorder(),
-                              prefixText: "R\$ "),
-                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                        ),
+                        /*Chamada da função, orientando quais informações, devem 
+                        substituir os parâmetros dentro da função*/
+                        buildTextField(
+                            "Reais", "R\$ ", realController, _realChanged),
+                        /* na chamada do 'controller' e da função '_realChanged', o código executa os 
+ comandos que foram orientados, tanto o que foi colocado no controlador
+ quanto os parâmetros e funções que foram colocados dentro do _realChanged */
                         Divider(),
-                        TextField(
-                          decoration: InputDecoration(
-                              labelText: "Dólares",
-                              labelStyle: TextStyle(color: Colors.amber),
-                              border: OutlineInputBorder(),
-                              prefixText: "US\$ "),
-                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                        ),
+                        buildTextField(
+                            "Dólares", "US\$ ", dolarController, _dolarChanged),
                         Divider(),
-                        TextField(
-                          decoration: InputDecoration(
-                              labelText: "Euros",
-                              labelStyle: TextStyle(color: Colors.amber),
-                              border: OutlineInputBorder(),
-                              prefixText: "EUR "),
-                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                        ),
+                        buildTextField(
+                            /*Na ordem =>
+                          String label,
+                          String prefix,
+                          mainController,
+                          mainFunction,
+                          */
+                            "Euros",
+                            "EUR ",
+                            euroController,
+                            _euroChanged)
                       ],
                     ),
                   );
@@ -118,4 +161,24 @@ class _HomeState extends State<Home> {
           }),
     );
   }
+}
+
+/*Criação de uma função com parâmetros. Esses parâmetros
+serão referenciados no código, substituindo assim as informações dispostas
+dentro dos parênteses*/
+Widget buildTextField(String label, String prefix,
+    TextEditingController mainController, Function mainFunction) {
+  return TextField(
+    controller: mainController,
+    decoration: InputDecoration(
+        //Identifica que o parâmetro label, será alocado aqui
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.amber),
+        border: OutlineInputBorder(),
+        //Identifica que o parâmetro prefix, será alocado aqui
+        prefixText: prefix),
+    style: TextStyle(color: Colors.amber, fontSize: 25.0),
+    onChanged: mainFunction,
+    keyboardType: TextInputType.number,
+  );
 }
