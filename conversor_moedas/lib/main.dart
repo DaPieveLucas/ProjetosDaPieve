@@ -9,13 +9,15 @@ const request = "https://api.hgbrasil.com/finance?format=json&key=171b4d61";
 
 void main() async {
   print(await getData());
-
+//Pede para construir a tela conforme orientações
   runApp(MaterialApp(
     home: Home(),
     theme: ThemeData(
+        //Define o tema do app
         hintColor: Colors.amber,
         primaryColor: Colors.white,
         inputDecorationTheme: InputDecorationTheme(
+          //Define o tema para as rows
           enabledBorder:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
           focusedBorder:
@@ -25,7 +27,7 @@ void main() async {
   ));
 }
 
-//Comando para pegar as informaçõesna Api e pedir para retornar
+//Comando para pegar as informações na Api e pedir para retornar
 Future<Map> getData() async {
   http.Response response = await http.get(request);
   return json.decode(response.body);
@@ -39,6 +41,8 @@ class Home extends StatefulWidget {
 
 //Criação do estado inicial da tela
 class _HomeState extends State<Home> {
+  /*Criação dos controladores de texto, para controlar as informações que são 
+  exibidas na tela*/
   final realController = TextEditingController();
   final dolarController = TextEditingController();
   final euroController = TextEditingController();
@@ -126,10 +130,13 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Icon(
-                          Icons.monetization_on,
-                          size: 150.0,
-                          color: Colors.amber,
+                        Padding(
+                          padding: new EdgeInsets.only(bottom: 20.0),
+                          child: Icon(
+                            Icons.monetization_on,
+                            size: 150.0,
+                            color: Colors.amber,
+                          ),
                         ),
                         /*Chamada da função, orientando quais informações, devem 
                         substituir os parâmetros dentro da função*/
