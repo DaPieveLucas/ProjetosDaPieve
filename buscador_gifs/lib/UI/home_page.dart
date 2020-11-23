@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,8 +20,9 @@ class _HomePageState extends State<HomePage> {
   //Função para pegar os dados da API
   Future<Map> _getGifs() async {
     http.Response response;
+
 //Comando para que apareça os trendings, quando não for realizado pesquisa
-    if (_search == null) //Como o campo de pesquisa será nulo
+    if (_search == null || _search.isEmpty) //Como o campo de pesquisa será nulo
       response = await http.get(//Ele irá buscar na API dos 'trendings'
           "https://api.giphy.com/v1/gifs/trending?api_key=nUOf2UAOyR5qYfmZu5IafqD5eIzvN3AU&limit=20&rating=g");
     else //No momento da pesquisa, a variável recebe o comando de buscar na API o que foi orientado
@@ -33,9 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getGifs().then((map) {
-      print(map);
-    });
+    _getGifs().then((map) {});
   }
 
   @override
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _getCount(List data) {
-    if (_search == null) {
+    if (_search == null || _search.isEmpty) {
       return data.length;
     } else {
       return data.length + 1;
@@ -114,9 +114,11 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           if (_search == null || index < snapshot.data["data"].length)
             return GestureDetector(
-              child: Image.network(
-                snapshot.data["data"][index]["images"]["fixed_height"]["url"],
-                height: 300,
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: snapshot.data["data"][index]["images"]["fixed_height"]
+                    ["url"],
+                height: 300.0,
                 fit: BoxFit.cover,
               ),
               onTap: () {
