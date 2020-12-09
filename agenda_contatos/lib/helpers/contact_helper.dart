@@ -30,7 +30,7 @@ class ContactHelper {
 //Criação do banco de dados
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "contacts.db");
+    final path = join(databasesPath, "contactsnew.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
@@ -39,12 +39,14 @@ class ContactHelper {
     });
   }
 
+//Função para salvar o contato
   Future<Contact> saveContact(Contact contact) async {
     Database dbContact = await db;
     contact.id = await dbContact.insert(contactTable, contact.toMap());
     return contact;
   }
 
+//Função para pegar um contato
   Future<Contact> getContact(int id) async {
     Database dbContact = await db;
     List<Map> maps = await dbContact.query(contactTable,
@@ -56,6 +58,41 @@ class ContactHelper {
     } else {
       return null;
     }
+  }
+
+//Função para deletar um contato
+  Future<int> deleteContact(int id) async {
+    Database dbContact = await db;
+    return await dbContact
+        .delete(contactTable, where: "$idColumn = ?", whereArgs: [id]);
+  }
+
+//Função para atualizar o contato
+  Future<int> updateContact(Contact contact) async {
+    Database dbContact = await db;
+    return await dbContact.update(contactTable, contact.toMap(),
+        where: "$idColumn = ?", whereArgs: [contact.id]);
+  }
+
+  getAllContacts() async {
+    Database dbContact = await db;
+    List listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
+    List<Contact> listContact = List();
+    for (Map m in listMap) {
+      listContact.add(Contact.fromMap(m));
+    }
+    return listContact;
+  }
+
+  Future<int> getNumber() async {
+    Database dbContact = await db;
+    return Sqflite.firstIntValue(
+        await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"));
+  }
+
+  Future close() async {
+    Database dbContact = await db;
+    dbContact.close();
   }
 }
 
@@ -69,6 +106,9 @@ class Contact {
   String email;
   String phone;
   String img;
+
+  Contact();
+
 //Contrutor que vincula os dados que são digitaos em cada index do mapa
   Contact.fromMap(Map map) {
     id = map[idColumn];
