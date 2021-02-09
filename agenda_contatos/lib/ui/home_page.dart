@@ -70,13 +70,13 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Text(contacts[index].name ?? "",
                         style: TextStyle(
-                            fontSize: 22.0, fontWeight: FontWeight.bold)),
+                            fontSize: 15.0, fontWeight: FontWeight.bold)),
                     Text(contacts[index].email ?? "",
                         style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.w500)),
+                            fontSize: 13.0, fontWeight: FontWeight.w500)),
                     Text(contacts[index].phone ?? "",
                         style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.w500))
+                            fontSize: 13.0, fontWeight: FontWeight.w500))
                   ],
                 ),
               )
@@ -85,7 +85,58 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       onTap: () {
-        _showContactPage(contact: contacts[index]);
+        _showOptions(context, index);
+      },
+    );
+  }
+
+  void _showOptions(BuildContext context, int index) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return BottomSheet(
+          onClosing: () {},
+          builder: (context) {
+            return Container(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text(
+                      "Ligar",
+                      style: TextStyle(color: Colors.red, fontSize: 13.0),
+                    ),
+                    onPressed: () {},
+                  ),
+                  FlatButton(
+                    child: Text(
+                      "Editar",
+                      style: TextStyle(color: Colors.red, fontSize: 13.0),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _showContactPage(contact: contacts[index]);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text(
+                      "Excluir",
+                      style: TextStyle(color: Colors.red, fontSize: 13.0),
+                    ),
+                    onPressed: () {
+                      helper.deleteContact(contacts[index].id);
+                      setState(() {
+                        contacts.removeAt(index);
+                        Navigator.pop(context);
+                      });
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }
