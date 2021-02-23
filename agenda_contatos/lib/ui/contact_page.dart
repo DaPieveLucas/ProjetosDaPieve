@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:agenda_contatos/helpers/contact_helper.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ContactPage extends StatefulWidget {
   final Contact contact;
@@ -16,6 +17,7 @@ class _ContactPageState extends State<ContactPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
+  PickedFile imageFile;
 
   final _nameFocus = FocusNode();
 
@@ -34,6 +36,13 @@ class _ContactPageState extends State<ContactPage> {
     _phoneController.text = _editedContact.phone;
   }
 
+  Future getImage(int type) async {
+    PickedFile pickedImage = await ImagePicker().getImage(
+        source: type == 1 ? ImageSource.camera : ImageSource.gallery,
+        imageQuality: 50);
+    return pickedImage;
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -46,7 +55,9 @@ class _ContactPageState extends State<ContactPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _editedContact != null && _editedContact.name.isNotEmpty
+            _editedContact != null &&
+                    _editedContact.name != null &&
+                    _editedContact.name.isNotEmpty
                 ? Navigator.pop(context, _editedContact)
                 : FocusScope.of(context).requestFocus(_nameFocus);
           },
@@ -68,6 +79,14 @@ class _ContactPageState extends State<ContactPage> {
                               ? FileImage(File(_editedContact.img))
                               : AssetImage("images/person.png"))),
                 ),
+                onTap: () {
+                  getImage(2).then((file) {
+                    if (file == null) return;
+                    setState(() {
+                      _editedContact.img = file.path;
+                    });
+                  });
+                },
               ),
               TextField(
                 controller: _nameController,
