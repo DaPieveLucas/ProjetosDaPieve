@@ -36,9 +36,9 @@ class _ContactPageState extends State<ContactPage> {
     _phoneController.text = _editedContact.phone;
   }
 
-  Future getImage(int type) async {
+  Future getImage(int tipo) async {
     PickedFile pickedImage = await ImagePicker().getImage(
-        source: type == 1 ? ImageSource.camera : ImageSource.gallery,
+        source: tipo == 1 ? ImageSource.camera : ImageSource.gallery,
         imageQuality: 50);
     return pickedImage;
   }
@@ -73,13 +73,15 @@ class _ContactPageState extends State<ContactPage> {
                   width: 140.0,
                   height: 140.0,
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: _editedContact.img != null
-                              ? FileImage(File(_editedContact.img))
-                              : AssetImage("images/person.png"))),
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: _editedContact.img != null
+                            ? FileImage(File(_editedContact.img))
+                            : AssetImage("images/person.png"),
+                        fit: BoxFit.cover),
+                  ),
                 ),
-                onTap: () {
+                onTap: () async {
                   getImage(2).then((file) {
                     if (file == null) return;
                     setState(() {
