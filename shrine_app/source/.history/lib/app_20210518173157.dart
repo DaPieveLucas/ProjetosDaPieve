@@ -43,8 +43,8 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
-      primary: kShrinePink100,
-      onPrimary: kShrineSurfaceWhite,
+      primary: kShrineErrorRed,
+      onPrimary: kShrineBrown900,
       secondary: kShrineBrown900,
       error: kShrineErrorRed,
     ),

@@ -43,10 +43,10 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
-      primary: kShrinePink100,
+      primary: kShrineErrorRed,
       onPrimary: kShrineSurfaceWhite,
       secondary: kShrineBrown900,
-      error: kShrineErrorRed,
+      error: kShrineBrown900,
     ),
     appBarTheme: base.appBarTheme.copyWith(
       backwardsCompatibility: false,

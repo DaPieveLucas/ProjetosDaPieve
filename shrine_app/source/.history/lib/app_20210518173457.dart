@@ -46,7 +46,7 @@ ThemeData _buildShrineTheme() {
       primary: kShrinePink100,
       onPrimary: kShrineSurfaceWhite,
       secondary: kShrineBrown900,
-      error: kShrineErrorRed,
+      error: kShrineBrown900,
     ),
     appBarTheme: base.appBarTheme.copyWith(
       backwardsCompatibility: false,

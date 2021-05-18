@@ -44,8 +44,8 @@ ThemeData _buildShrineTheme() {
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
       primary: kShrinePink100,
-      onPrimary: kShrineSurfaceWhite,
-      secondary: kShrineBrown900,
+      onPrimary: kShrineBrown900,
+      secondary: kShrineSurfaceWhite,
       error: kShrineErrorRed,
     ),
     appBarTheme: base.appBarTheme.copyWith(
