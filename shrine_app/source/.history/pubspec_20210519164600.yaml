@@ -19,6 +19,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  # TODO: Insert Fonts (103)
   fonts:
     - family: Rubik
       fonts:

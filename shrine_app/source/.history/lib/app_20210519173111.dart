@@ -51,6 +51,7 @@ ThemeData _buildShrineTheme() {
     appBarTheme: base.appBarTheme.copyWith(
       backwardsCompatibility: false,
     ),
+    // TODO: Add the text themes (103)
     textTheme: _buildShrineTextTheme(base.textTheme),
     primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
     textSelectionTheme: TextSelectionThemeData(
