@@ -1,30 +1,28 @@
 [
   {
-    "title": "NLW 5 Flutter",
-    "imagem": "blocks",
-    "questionAnswered": 1,
-    "level": "facil",
-    "questions": [
-      {
-        "title": "Está curtindo o Flutter ?",
-        "answers": [
-          { "title": "Estou curtindo" },
-          { "title": "Amando Flutter" },
-          { "title": "Muito Top" },
-          { "title": "Topísismo" },
-          { "isRight": true }
-        ]
-      },
-      {
-        "title": "Está curtindo o Flutter ?",
-        "answers": [
-          { "title": "Estou curtindo" },
-          { "title": "Amando Flutter" },
-          { "title": "Muito Top" },
-          { "title": "Topísismo" },
-          { "isRight": true }
-        ]
-      }
-    ]
+  "title": "NLW 5 Flutter",
+  "imagem": "blocks",
+  "level": "facil",
+  "questionAnswered": 1,
+  "questions": [
+          {
+              "title": "Você gosta de desenvolvimento mobile?",
+              "answers": [
+                  {"title": "Gosto muito", "isRight": true},
+                  {"title": "Mais ou menos"},
+                  {"title": "Pouco"},
+                  {"title": "Odeio"}
+              ]
+          },
+          {
+              "title": "Você gosta de desenvolvimento WEB?",
+              "answers": [
+                  {"title": "Gosto muito", "isRight": true},
+                  {"title": "Mais ou menos"},
+                  {"title": "Pouco"},
+                  {"title": "Odeio"}
+              ]
+          }
+      ]
   }
 ]
