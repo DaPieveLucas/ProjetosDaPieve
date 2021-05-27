@@ -12,6 +12,7 @@ class HomeController {
   UserModel? user;
   List<QuizModel>? quizzes;
 
+
   final repository = HomeRepository();
 
   void getUser() async {
