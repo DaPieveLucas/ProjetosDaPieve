@@ -1,16 +1,11 @@
-# dev_quiz
+NLW Edição 5
+https://nextlevelweek.com/episodios/flutter/1/edicao/5
 
-A new Flutter project.
+Link para Notion real
+https://www.notion.so/Material-para-a-aula-01-92b506e9339f4f8b9b50612c7a414289
 
-## Getting Started
+Link para Notion pessoal
+https://www.notion.so/williankirsch/Trilha-Flutter-1ca0b53fbe594ae5988ce97fbb9e26f7
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Protótipo
+https://www.figma.com/file/PeYeqTH2Y9FuWTXGuIrca0/DevQuiz-WK
