@@ -11,18 +11,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = HomeController();
+  final pages = [
+    Container(
+      color: Colors.red,
+    ),
+    Container(
+      color: Colors.blue,
+    )
+  ];
   @override
   Widget build(BuildContext context) {
-    final controller = HomeController();
-    final pages = [
-      Container(
-        color: Colors.red,
-      ),
-      Container(
-        color: Colors.blue,
-      )
-    ];
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(152),
@@ -70,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 )),
             GestureDetector(
               onTap: () {
-                print('CLICOU');
+                Navigator.pushNamed(context, '/barcode_scanner');
               },
               child: Container(
                 height: 56,
